@@ -108,4 +108,10 @@ public class OrderController extends BaseController {
         listProductByUserIdForm.setUserId(userId.toString());
         return orderService.listOrder(listProductByUserIdForm);
     }
+
+    @ApiOperation("根据id获取订单")
+    @PostMapping("/get")
+    public ServerResponse GetOrderByID(@RequestBody GetOrderByIDForm getOrderByIDForm){
+        return ServerResponse.createBySuccess(orderService.getById(getOrderByIDForm.getId()));
+    }
 }

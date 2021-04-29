@@ -6,4 +6,5 @@ import lombok.Data;
 public class RegisterForm {
     String username;
     String password;
+    Integer indetity;
 }

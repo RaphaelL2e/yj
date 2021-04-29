@@ -4,10 +4,7 @@ package com.agricultural.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.agricultural.constants.UserConstant;
-import com.agricultural.form.AddProductForm;
-import com.agricultural.form.DeleteProductForm;
-import com.agricultural.form.ListProductForm;
-import com.agricultural.form.UpdateProductForm;
+import com.agricultural.form.*;
 import com.agricultural.pojo.AgriculturalProduct;
 import com.agricultural.response.ServerResponse;
 import com.agricultural.service.IAgriculturalProductService;
@@ -82,5 +79,11 @@ public class AgriculturalProductController extends BaseController {
         listProductForm.setPageNum(i);
         listProductForm.setPageSize(10);
         return agriculturalProductService.listProduct(listProductForm);
+    }
+
+    @ApiOperation("根据id获取产品")
+    @PostMapping("/get")
+    public ServerResponse GetProductByID(@RequestBody GetProductByIDForm getProductByIDForm){
+        return ServerResponse.createBySuccess(agriculturalProductService.getById(getProductByIDForm.getProductId()));
     }
 }

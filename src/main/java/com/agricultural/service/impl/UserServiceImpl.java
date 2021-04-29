@@ -50,6 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         u.setId(String.valueOf(sw.nextId()));
         u.setUsername(registerForm.getUsername());
         u.setPassword(Md5PswdUtil.md5Pswd(registerForm.getPassword()));
+        u.setIndetity(registerForm.getIndetity());
         try {
             userMapper.insert(u);
             userDetailMapper.insert(new UserDetail()
