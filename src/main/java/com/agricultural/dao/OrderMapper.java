@@ -1,6 +1,6 @@
 package com.agricultural.dao;
 
-import com.agricultural.pojo.Order;
+import com.agricultural.pojo.Orders;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author lee
  * @since 2021-04-12
  */
-public interface OrderMapper extends BaseMapper<Order> {
+public interface OrderMapper extends BaseMapper<Orders> {
 
 }

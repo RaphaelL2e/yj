@@ -1,7 +1,7 @@
 package com.agricultural.service;
 
 import com.agricultural.form.ListProductByUserIdForm;
-import com.agricultural.pojo.Order;
+import com.agricultural.pojo.Orders;
 import com.agricultural.response.ServerResponse;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,9 +13,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author lee
  * @since 2021-04-12
  */
-public interface IOrderService extends IService<Order> {
+public interface IOrderService extends IService<Orders> {
 
-    ServerResponse addOrder(Order order);
+    ServerResponse addOrder(Orders order);
 
     ServerResponse listOrder(ListProductByUserIdForm listProductByUserIdForm);
 

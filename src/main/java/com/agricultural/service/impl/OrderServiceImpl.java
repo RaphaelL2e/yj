@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.agricultural.form.ListProductByUserIdForm;
 import com.agricultural.pojo.AgriculturalProduct;
-import com.agricultural.pojo.Order;
+import com.agricultural.pojo.Orders;
 import com.agricultural.dao.OrderMapper;
 import com.agricultural.response.ServerResponse;
 import com.agricultural.service.IOrderService;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
  * @since 2021-04-12
  */
 @Service
-public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orders> implements IOrderService {
 
     private final
     OrderMapper orderMapper;
@@ -37,7 +37,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public ServerResponse addOrder(Order order) {
+    public ServerResponse addOrder(Orders order) {
         SnowflakeIdWorker sw = new SnowflakeIdWorker(2, 1);
         order.setId(String.valueOf(sw.nextId()));
         order.setCreateAt(LocalDateTime.now());
@@ -51,7 +51,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public ServerResponse listOrder(ListProductByUserIdForm listProductByUserIdForm) {
-        QueryWrapper<Order> articleQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<Orders> articleQueryWrapper = new QueryWrapper<>();
         if (null != listProductByUserIdForm.getUserId()) {
             articleQueryWrapper = articleQueryWrapper.eq("user_id", listProductByUserIdForm.getUserId());
         }
@@ -61,10 +61,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             articleQueryWrapper.orderByDesc("create_at");
         }
 
-        Order order = new Order();
+        Orders order = new Orders();
         BeanUtil.copyProperties(listProductByUserIdForm, order, CopyOptions.create().setIgnoreNullValue(true).setIgnoreCase(true));
-        IPage<Order> orderIPage = new Page<>(listProductByUserIdForm.getPageNum(), listProductByUserIdForm.getPageSize());
-        IPage<Order> orderIPage1 = this.page(orderIPage, articleQueryWrapper);
+        IPage<Orders> orderIPage = new Page<>(listProductByUserIdForm.getPageNum(), listProductByUserIdForm.getPageSize());
+        IPage<Orders> orderIPage1 = this.page(orderIPage, articleQueryWrapper);
         return ServerResponse.createBySuccess(orderIPage1);
     }
 }

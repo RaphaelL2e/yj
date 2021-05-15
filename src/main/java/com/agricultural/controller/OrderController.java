@@ -5,7 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.agricultural.constants.UserConstant;
 import com.agricultural.form.*;
-import com.agricultural.pojo.Order;
+import com.agricultural.pojo.Orders;
 import com.agricultural.response.ServerResponse;
 import com.agricultural.service.IOrderService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -40,7 +40,7 @@ public class OrderController extends BaseController {
     @PostMapping("/add")
     public ServerResponse AddOrder(@RequestBody AddOrderForm addOrderForm, HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute(UserConstant.USER_SESSION_NAME);
-        Order order = new Order();
+        Orders order = new Orders();
         order.setUserId(userId.toString());
         return orderService.addOrder(order);
     }
@@ -50,10 +50,10 @@ public class OrderController extends BaseController {
     @PutMapping("/update")
     public ServerResponse UpdateOrder(@RequestBody UpdateOrderForm updateOrderForm, HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute(UserConstant.USER_SESSION_NAME);
-        Order order = new Order();
+        Orders order = new Orders();
         order.setUserId(userId.toString());
         BeanUtil.copyProperties(updateOrderForm, order, CopyOptions.create().setIgnoreNullValue(true).setIgnoreCase(true));
-        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("id", updateOrderForm.getId());
         try {
@@ -68,9 +68,9 @@ public class OrderController extends BaseController {
     @DeleteMapping("/delete")
     public ServerResponse DeleteOrder(@RequestBody DeleteOrderForm deleteOrderForm, HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute(UserConstant.USER_SESSION_NAME);
-        Order order = new Order();
+        Orders order = new Orders();
         order.setUserId(userId.toString());
-        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("id", deleteOrderForm.getId());
         queryWrapper.eq("status",0);
@@ -87,9 +87,9 @@ public class OrderController extends BaseController {
     @PostMapping("/finish")
     public ServerResponse FinishOrder(FinishOrderForm finishOrderForm,HttpServletRequest request){
         Long userId = (Long) request.getSession().getAttribute(UserConstant.USER_SESSION_NAME);
-        Order order = new Order();
+        Orders order = new Orders();
         order.setUserId(userId.toString());
-        QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<Orders> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", userId);
         queryWrapper.eq("id", finishOrderForm.getId());
         queryWrapper.eq("status",0);
